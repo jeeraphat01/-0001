@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cute Lucky Wheel 1-49</title>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#ffe6f1;--bg2:#e3f3ff;--bg3:#efe6ff;--card:rgba(255,255,255,.78);--ink:#5a3d6e;--line:#ffb3d1;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2b2142;--bg2:#1f2a47;--bg3:#2a2146;--card:rgba(70,56,104,.75);--ink:#f3eaff;--line:#8a6bb8;color-scheme:dark}}
+:root[data-theme="dark"]{--bg1:#2b2142;--bg2:#1f2a47;--bg3:#2a2146;--card:rgba(70,56,104,.75);--ink:#f3eaff;--line:#8a6bb8;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:'Mali','Sarabun','Noto Sans Thai',system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2) 55%,var(--bg3));background-attachment:fixed;overflow-x:hidden}
+.deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco span{position:absolute;opacity:.55;animation:float 7s ease-in-out infinite alternate}
+@keyframes float{to{transform:translateY(-22px) rotate(12deg)}}
+.app{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:14px 14px 40px}
+h1{margin:6px 0 14px;text-align:center;font-size:clamp(24px,6vw,38px);color:#ff5fa2;text-shadow:0 3px 0 #fff,0 0 18px rgba(255,143,184,.6)}
+.layout{display:grid;gap:18px}
+@media(min-width:880px){.layout{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start}}
+.wheelwrap{position:relative;width:min(100%,520px);aspect-ratio:1;margin:14px auto 0;padding:10px}
+.wheelwrap canvas.w{width:100%;height:100%;display:block;border-radius:50%;box-shadow:0 0 0 8px #fff,0 0 34px 10px rgba(255,143,184,.55),0 12px 30px rgba(120,80,160,.25);will-change:transform}
+.ptr{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-top:36px solid #ff4f93;filter:drop-shadow(0 3px 2px rgba(0,0,0,.25));z-index:3}
+.hub{position:absolute;left:50%;top:50%;width:17%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:#fff;display:grid;place-items:center;font-size:clamp(22px,6vw,40px);box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:2}
+.panel{background:var(--card);border-radius:28px;padding:14px;box-shadow:0 8px 24px rgba(150,100,200,.18);backdrop-filter:blur(6px)}
+.buddy{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+#bunny{width:min(38vw,170px);flex:none;overflow:visible}
+#say{position:relative;flex:1;background:#fff;color:#5a3d6e;border-radius:22px;padding:12px 14px;font-weight:700;min-height:60px;display:flex;align-items:center;box-shadow:0 4px 0 #ffd0e3}
+#say:before{content:"";position:absolute;left:-10px;top:50%;margin-top:-9px;border:9px solid transparent;border-right-color:#fff;border-left:0}
+.res{text-align:center;padding:10px;border:4px dashed var(--line);border-radius:28px;margin-bottom:12px}
+#num{font-size:clamp(60px,15vw,100px);font-weight:700;line-height:1.1;color:#ff5fa2;text-shadow:0 4px 0 #fff,0 0 20px rgba(255,143,184,.7);display:inline-block}
+#cap{min-height:1.6em;font-weight:700}
+#num.pop{animation:pop .6s cubic-bezier(.3,1.6,.5,1)}
+#num.glitch{animation:glitch .13s infinite}
+@keyframes pop{0%{transform:scale(.2) rotate(-12deg)}60%{transform:scale(1.35) rotate(5deg)}100%{transform:scale(1)}}
+@keyframes glitch{0%{transform:translate(-4px,2px);text-shadow:4px 0 #0ff,-4px 0 #f0f}50%{transform:translate(5px,-3px) skewX(12deg);text-shadow:-5px 0 #0ff,5px 0 #f0f;filter:hue-rotate(90deg)}100%{transform:translate(0,3px);text-shadow:3px 0 #f0f,-3px 0 #0ff}}
+.ctrl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.ctrl .main{grid-column:1/-1}
+button{font:inherit;font-weight:700;font-size:clamp(16px,4.2vw,20px);border:0;border-radius:999px;padding:14px 12px;min-height:54px;color:#5a3d6e;cursor:pointer;box-shadow:0 6px 0 rgba(120,70,150,.25),0 8px 14px rgba(0,0,0,.08);transition:transform .08s,box-shadow .08s,filter .2s}
+button:active:not(:disabled){transform:translateY(5px);box-shadow:0 1px 0 rgba(120,70,150,.25)}
+button:disabled{filter:grayscale(.7) opacity(.6);cursor:not-allowed}
+button:focus-visible{outline:4px solid #7a5cff;outline-offset:2px}
+.b-spin{background:linear-gradient(#ff9cc4,#ff6fa5);color:#fff;font-size:clamp(20px,5vw,26px)}
+.b-again{background:linear-gradient(#d9c8ff,#b99cff)}
+.b-troll{background:linear-gradient(#c4f2dc,#84e0b8)}
+.b-troll[aria-pressed=false]{background:linear-gradient(#eee,#d5d5d5)}
+.b-snd{background:linear-gradient(#bfe3ff,#8cc8ff)}
+.b-snd[aria-pressed=false]{background:linear-gradient(#eee,#d5d5d5)}
+.b-reset{background:linear-gradient(#fff4c4,#ffe27a)}
+.friends{display:flex;justify-content:center;gap:18px;font-size:40px;margin:4px 0 12px}
+.friends span{display:inline-block;animation:bob 2s ease-in-out infinite}
+.friends span:nth-child(2){animation-delay:.4s}.friends span:nth-child(3){animation-delay:.8s}
+.friends.jump span{animation:hop .45s 3}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.hh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;font-weight:700}
+.hh button{font-size:14px;min-height:40px;padding:6px 14px;background:#ffd0e3}
+#hist{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
+.chip{min-width:48px;padding:6px 10px;border-radius:16px;text-align:center;font-weight:700;font-size:18px;color:#5a3d6e;box-shadow:0 3px 0 rgba(120,70,150,.2)}
+.chip:first-child{outline:3px solid #ff5fa2}
+.empty{opacity:.75}
+.mm,.cover,.eh{display:none}
+[data-mood=wave] .m-s,[data-mood=happy] .m-s,[data-mood=cheer] .m-s{display:inline}
+[data-mood=watch] .m-o,[data-mood=shock] .m-o,[data-mood=peek] .m-o,[data-mood=refuse] .m-o{display:inline}
+[data-mood=troll] .m-l{display:inline}
+[data-mood=beg] .m-b{display:inline}
+[data-mood=cheer] .ec,[data-mood=troll] .ec{display:none}
+[data-mood=cheer] .eh,[data-mood=troll] .eh{display:inline}
+[data-mood=peek] .cover{display:inline}
+.ec{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
+[data-mood=wave] .arm{animation:wave .5s infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+[data-mood=cheer]{animation:hop .5s infinite}
+[data-mood=watch]{animation:wig .6s infinite}
+[data-mood=troll]{animation:wig .22s infinite}
+[data-mood=refuse],[data-mood=shock]{animation:shake .25s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@keyframes wave{to{transform:rotate(-35deg)}}
+@keyframes hop{50%{transform:translateY(-16px)}}
+@keyframes wig{25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#cf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+@media (prefers-reduced-motion:reduce){.deco span,.friends span{animation:none}}
+</style>
+</head>
+<body>
+<div class="deco" id="deco" aria-hidden="true"></div>
+<canvas id="cf" aria-hidden="true"></canvas>
+<main class="app">
+<h1>🍭 Cute Lucky Wheel 1-49</h1>
+<div class="layout">
+  <div class="wheelwrap">
+    <div class="ptr"></div>
+    <canvas class="w" id="wheel" role="img" aria-label="วงล้อตัวเลข 1 ถึง 49"></canvas>
+    <div class="hub">🐰</div>
+  </div>
+  <div class="panel">
+    <div class="buddy">
+      <svg id="bunny" viewBox="0 0 200 215" data-mood="wave" aria-hidden="true">
+        <g stroke="#f3b6cf" stroke-width="4" fill="#fff">
+          <ellipse cx="72" cy="46" rx="18" ry="44"/><ellipse cx="128" cy="46" rx="18" ry="44"/>
+          <ellipse cx="100" cy="170" rx="48" ry="40"/>
+          <ellipse cx="100" cy="112" rx="62" ry="52"/>
+          <g class="arm"><ellipse cx="150" cy="168" rx="12" ry="24" transform="rotate(-20 150 168)"/></g>
+        </g>
+        <ellipse cx="72" cy="50" rx="8" ry="28" fill="#ffc2d9"/><ellipse cx="128" cy="50" rx="8" ry="28" fill="#ffc2d9"/>
+        <circle cx="62" cy="128" r="10" fill="#ffa6c6" opacity=".6"/><circle cx="138" cy="128" r="10" fill="#ffa6c6" opacity=".6"/>
+        <ellipse cx="100" cy="118" rx="5" ry="3.5" fill="#ff7fae"/>
+        <g class="ec" fill="#4a3358"><circle cx="78" cy="104" r="7"/><circle cx="122" cy="104" r="7"/><circle cx="80" cy="101" r="2.5" fill="#fff"/><circle cx="124" cy="101" r="2.5" fill="#fff"/></g>
+        <g class="eh" fill="none" stroke="#4a3358" stroke-width="4" stroke-linecap="round"><path d="M69 107Q78 94 87 107"/><path d="M113 107Q122 94 131 107"/></g>
+        <path class="mm m-s" d="M88 128Q100 142 112 128" fill="none" stroke="#4a3358" stroke-width="4" stroke-linecap="round"/>
+        <ellipse class="mm m-o" cx="100" cy="132" rx="7" ry="9" fill="#ff8fb3"/>
+        <g class="mm m-l"><path d="M82 124Q100 154 118 124Z" fill="#ff8fb3"/><ellipse cx="100" cy="140" rx="8" ry="6" fill="#ff5f8f"/></g>
+        <path class="mm m-b" d="M89 136Q100 124 111 136" fill="none" stroke="#4a3358" stroke-width="4" stroke-linecap="round"/>
+        <g class="cover" fill="#fff" stroke="#f3b6cf" stroke-width="4"><ellipse cx="76" cy="104" rx="19" ry="14"/><ellipse cx="124" cy="104" rx="19" ry="14"/></g>
+      </svg>
+      <div id="say" aria-live="polite">สวัสดีจ้า! กดหมุนวงล้อเลย~ 🐰</div>
+    </div>
+    <div class="res"><div id="num">?</div><div id="cap">กดปุ่มเพื่อสุ่มเลข 1-49</div></div>
+    <div class="ctrl">
+      <button class="main b-spin" id="bSpin">START / SPIN</button>
+      <button class="b-again" id="bAgain" disabled>SPIN AGAIN</button>
+      <button class="b-troll" id="bTroll" aria-pressed="true">TROLL: ON</button>
+      <button class="b-snd" id="bSnd" aria-pressed="true">SOUND: ON</button>
+      <button class="b-reset" id="bReset">RESET</button>
+    </div>
+    <div class="friends" aria-hidden="true"><span>🐱</span><span>🐻</span><span>🐥</span></div>
+    <div class="hh"><span id="cnt">สุ่มแล้ว 0 ครั้ง</span><button id="bClear">ล้างประวัติ</button></div>
+    <div id="hist"></div>
+  </div>
+</div>
+</main>
+<script>
+(function(){
+const N=49,SEG=360/N,COL=['#ffc2d9','#bfe3ff','#d9c8ff','#fff1b8','#c4f2dc'];
+const $=id=>document.getElementById(id),sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function rnd(a,b){const u=new Uint32Array(1);crypto.getRandomValues(u);return a+u[0]%(b-a+1)}
+const other=n=>{let k;do{k=rnd(1,N)}while(k===n);return k};
+const S={state:'idle',troll:true,sound:true,hist:[],total:0,last:'',has:false};
+const KEY='kawaii_wheel_v1';
+try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');if(Array.isArray(d.hist))S.hist=d.hist.filter(x=>x>=1&&x<=N).slice(0,50);if(+d.total>0)S.total=+d.total;if(d.troll===false)S.troll=false;if(d.sound===false)S.sound=false}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({hist:S.hist,total:S.total,troll:S.troll,sound:S.sound}))}catch(e){}};
+const cv=$('wheel'),ctx=cv.getContext('2d'),bunny=$('bunny'),numEl=$('num');
+function draw(){const W=1000,c=W/2,R=c-16;cv.width=cv.height=W;ctx.clearRect(0,0,W,W);
+ for(let i=0;i<N;i++){const a0=(i-.5)*SEG*Math.PI/180-Math.PI/2,a1=(i+.5)*SEG*Math.PI/180-Math.PI/2;
+  ctx.beginPath();ctx.moveTo(c,c);ctx.arc(c,c,R,a0,a1);ctx.closePath();ctx.fillStyle=COL[i%5];ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.stroke()}
+ ctx.beginPath();ctx.arc(c,c,R,0,Math.PI*2);ctx.lineWidth=14;ctx.strokeStyle='#fff';ctx.stroke();
+ ctx.fillStyle='#5a3d6e';ctx.font='700 34px Mali,sans-serif';ctx.textAlign='right';ctx.textBaseline='middle';
+ for(let i=0;i<N;i++){ctx.save();ctx.translate(c,c);ctx.rotate(i*SEG*Math.PI/180-Math.PI/2);ctx.fillText(String(i+1),R-34,0);ctx.restore()}}
+draw();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+// sound
+let AC;
+function tone(f,d,type,v,t,f2){if(!S.sound)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();
+ const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+(t||0);o.type=type||'sine';o.frequency.setValueAtTime(f,s);
+ if(f2)o.frequency.exponentialRampToValueAtTime(f2,s+d);g.gain.setValueAtTime(v||.15,s);g.gain.exponentialRampToValueAtTime(.001,s+d);
+ o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+d+.03)}catch(e){}}
+const sfx={tick:()=>tone(1500,.035,'square',.04),pop:()=>tone(300,.14,'sine',.22,0,800),boing:()=>{tone(180,.35,'sine',.25,0,520);tone(520,.3,'sine',.15,.3,160)},
+ spin:()=>tone(180,1.2,'sawtooth',.035,0,700),laugh:()=>[0,1,2,3,4].forEach(i=>tone(460+(i%2)*140,.09,'square',.07,i*.12)),
+ reveal:()=>tone(660,.2,'triangle',.15,0,990),win:()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.25,'triangle',.16,i*.1))};
+// wheel motion
+let rot=0,lastK=0;
+function setRot(r){rot=r;cv.style.transform='rotate('+r+'deg)'}
+function anim(to,ms,ease){return new Promise(res=>{const from=rot,t0=performance.now();
+ (function f(t){const p=Math.min(1,(t-t0)/ms);setRot(from+(to-from)*ease(p));const k=Math.floor(-rot/SEG+.5);if(k!==lastK){lastK=k;sfx.tick()}
+  p<1?requestAnimationFrame(f):res()})(t0)})}
+const oc=p=>1-Math.pow(1-p,3.5),io=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+function target(n,extra,jit){const base=-(n-1)*SEG+(jit===false?0:(Math.random()-.5)*SEG*.55);return base+360*(Math.ceil((rot-base)/360)+extra)}
+// ui helpers
+const say=t=>{$('say').textContent=t},mood=m=>bunny.setAttribute('data-mood',m),cap=t=>{$('cap').textContent=t};
+function setNum(v){numEl.textContent=v;numEl.classList.remove('pop');void numEl.offsetWidth;numEl.classList.add('pop')}
+function lock(b){['bSpin','bTroll','bReset'].forEach(i=>$(i).disabled=b);$('bAgain').disabled=b||!S.has}
+function renderBtns(){const t=$('bTroll'),s=$('bSnd');t.textContent='TROLL: '+(S.troll?'ON':'OFF');t.setAttribute('aria-pressed',S.troll);s.textContent='SOUND: '+(S.sound?'ON':'OFF');s.setAttribute('aria-pressed',S.sound)}
+function renderHist(){$('cnt').textContent='สุ่มแล้ว '+S.total+' ครั้ง';const h=$('hist');h.innerHTML='';
+ if(!S.hist.length){h.innerHTML='<span class="empty">ยังไม่มีประวัติ ลองหมุนวงล้อดูนะ 🍬</span>';return}
+ S.hist.forEach(n=>{const s=document.createElement('span');s.className='chip';s.style.background=COL[n%5];s.textContent=n;h.appendChild(s)})}
+// confetti
+const cf=$('cf'),cx=cf.getContext('2d');let P=[],raf=0;
+function confetti(n){cf.width=innerWidth;cf.height=innerHeight;const cs=['#ff8fb8','#8fd0ff','#c0a6ff','#ffe27a','#8fe6c0'],em=['⭐','💗','✨','🎀'];
+ for(let i=0;i<(n||90);i++)P.push({x:Math.random()*cf.width,y:-20-Math.random()*250,vx:(Math.random()-.5)*3,vy:2+Math.random()*4,a:Math.random()*6,s:9+Math.random()*10,c:cs[i%5],e:Math.random()<.35?em[i%4]:null});
+ if(!raf)loop()}
+function loop(){cx.clearRect(0,0,cf.width,cf.height);
+ P.forEach(p=>{p.x+=p.vx+Math.sin(p.a)*.8;p.y+=p.vy;p.a+=.12;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);
+  if(p.e){cx.font=(p.s+6)+'px sans-serif';cx.fillText(p.e,0,0)}else{cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2)}cx.restore()});
+ P=P.filter(p=>p.y<cf.height+30);if(P.length)raf=requestAnimationFrame(loop);else{raf=0;cx.clearRect(0,0,cf.width,cf.height)}}
+// troll events (final number f is chosen before any event runs; fake numbers are visual only)
+let lastEv='';
+const EV={
+ async A(f){const bt=target(f,5,false);await anim(bt+SEG*2.4,5000,oc);S.state='troll';mood('shock');say('เอ๊ะ! ยังไม่หยุดนะ!');sfx.boing();
+  await anim(bt-SEG*1.2,750,io);await sleep(500);mood('watch');sfx.spin();await anim(target(f,2),2800,oc)},
+ async B(f){const k=other(f);await anim(target(k,5),5000,oc);S.state='troll';mood('cheer');setNum(k);cap('ผลลัพธ์คือ...');say('ได้เลข '+k+' แล้ว! 🎉');sfx.reveal();
+  await sleep(1500);numEl.classList.remove('pop');numEl.classList.add('glitch');mood('troll');say('แฮ่! โดนหลอกแล้ววว 😂');sfx.laugh();await sleep(1000);
+  numEl.classList.remove('glitch');await anim(target(f,1),1500,io)},
+ async C(f){const k=other(f);await anim(target(k,5),5000,oc);S.state='troll';mood('refuse');numEl.textContent=k;cap('');say('ไม่เอาเลขนี้ ขอใหม่ได้ไหม?');sfx.boing();
+  await sleep(1700);mood('beg');say('ขอหมุนอีกทีนะ~ 🥺');await sleep(900);numEl.textContent='?';mood('watch');sfx.spin();await anim(target(f,4),3800,oc)},
+ async D(f){const bt=target(f,5,false);await anim(bt+SEG*1.6,5000,oc);S.state='troll';mood('peek');say('อุ๊ยยย เกือบไปแล้ว!');sfx.boing();
+  await anim(bt+SEG*2.1,320,io);await sleep(350);await anim(bt,900,io)},
+ async E(f){const k=other(f);await anim(target(k,5),5000,oc);S.state='troll';mood('cheer');setNum(k);cap('ยินดีด้วย! คุณได้เลขนี้แล้ว!');say('ยินดีด้วย! คุณได้เลขนี้แล้ว!');sfx.win();confetti(70);
+  await sleep(2100);mood('troll');cap('');say('ล้อเล่นนน! 😜');sfx.laugh();await sleep(1200);numEl.textContent='?';mood('watch');await anim(target(f,3),3200,oc)}
+};
+async function spin(){
+ if(S.state!=='idle')return;S.state='spinning';lock(true);
+ const f=rnd(1,N);let ev=null;
+ if(S.troll&&Math.random()<.9){do{ev=pick(Object.keys(EV))}while(ev===lastEv);lastEv=ev}else if(!S.troll)lastEv='';
+ numEl.classList.remove('glitch');numEl.textContent='?';cap('วงล้อกำลังหมุน...');mood('watch');say(pick(['ลุ้นๆๆ! 🤞','ขอเลขสวยๆ นะ~','หมุนไปๆๆ!']));sfx.spin();
+ try{if(ev)await EV[ev](f);else await anim(target(f,5),5200,oc)}catch(e){}
+ numEl.classList.remove('glitch');S.state='result';
+ setNum(f);cap(ev?'ของจริงแล้ว!':'เลขของคุณคือ');mood('cheer');
+ say(ev?'รอบนี้ของจริงแล้วนะ!':pick(['เย้! ได้เลขนี้แล้ว!','แต่น แต๊นนนน!','เลขนี้ใช่เลย!','ยินดีด้วยยย! 🎉']));
+ sfx.pop();sfx.win();confetti(100);
+ const fr=document.querySelector('.friends');fr.classList.remove('jump');void fr.offsetWidth;fr.classList.add('jump');
+ S.hist.unshift(f);S.hist=S.hist.slice(0,50);S.total++;S.has=true;save();renderHist();
+ S.state='idle';lock(false);
+ setTimeout(()=>{if(S.state==='idle')mood('happy')},1800);
+}
+$('bSpin').onclick=spin;$('bAgain').onclick=spin;
+$('bTroll').onclick=()=>{if(S.state!=='idle')return;S.troll=!S.troll;save();renderBtns();say(S.troll?'โหมดแกล้งเปิดแล้ว... อิอิ 😈':'โหมดแกล้งปิดแล้ว ปลอดภัย~ 😇');mood(S.troll?'troll':'happy')};
+$('bSnd').onclick=()=>{S.sound=!S.sound;save();renderBtns();if(S.sound)sfx.pop()};
+$('bReset').onclick=()=>{if(S.state!=='idle')return;setRot(0);lastK=0;S.has=false;lock(false);numEl.textContent='?';cap('กดปุ่มเพื่อสุ่มเลข 1-49');mood('wave');say('สวัสดีจ้า! กดหมุนวงล้อเลย~ 🐰')};
+$('bClear').onclick=()=>{S.hist=[];S.total=0;save();renderHist()};
+// background decor
+const dc=$('deco'),em=['☁️','⭐','💗','🌸','🍭','✨','🎀'];
+for(let i=0;i<16;i++){const s=document.createElement('span');s.textContent=em[i%em.length];s.style.left=Math.random()*96+'%';s.style.top=Math.random()*92+'%';s.style.fontSize=(18+Math.random()*26)+'px';s.style.animationDelay=(-Math.random()*6)+'s';dc.appendChild(s)}
+renderBtns();renderHist();lock(false);
+})();
+</script>
+</body>
+</html>
